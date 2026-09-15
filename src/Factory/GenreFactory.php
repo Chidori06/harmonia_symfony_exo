@@ -38,7 +38,7 @@ final class GenreFactory extends PersistentObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'color' => self::faker()->safeHexColor(),
+            'color' => self::faker()->hexColor(),
             'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
         ];
     }

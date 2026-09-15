@@ -38,7 +38,7 @@ final class AlbumFactory extends PersistentObjectFactory
     protected function defaults(): array|callable
     {
         $arrayType = ["EP", "Album", "Single"];
-        $arrayImg = ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg", "5.jpeg", "6.jpeg", "7.jpeg", "8.jpeg"];
+        $arrayImg = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg", "10.jpg"];
         return [
             'cover' => "uploads/" . self::faker()->randomElement($arrayImg),
             'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
