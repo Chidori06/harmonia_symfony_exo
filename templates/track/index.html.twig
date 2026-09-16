@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des chansons{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="mt-4 mb-4">Toutes les chansons :</h2>
+        <ul>
+            {% for track in tracks %}
+                <li> <a href="{{ path('app_track_item', {'id': track.id}) }}" class="card-text">{{ track.numberTrack }} - {{ track.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -16,10 +16,30 @@ class AlbumRepository extends ServiceEntityRepository
         parent::__construct($registry, Album::class);
     }
 
-//    /**
+    //    /**
 //     * @return Album[] Returns an array of Album objects
 //     */
-//    public function findByExampleField($value): array
+
+    public function getAlbumsAfter20s()
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.releaseAt >= :date')
+            ->setParameter('date', new \DateTime('2000-01-01 00:00:00'))
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAlbumsBefore20s()
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.releaseAt <= :date')
+            ->setParameter('date', new \DateTime('2000-01-01 00:00:00'))
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('a')
 //            ->andWhere('a.exampleField = :val')
@@ -31,7 +51,7 @@ class AlbumRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Album
+    //    public function findOneBySomeField($value): ?Album
 //    {
 //        return $this->createQueryBuilder('a')
 //            ->andWhere('a.exampleField = :val')

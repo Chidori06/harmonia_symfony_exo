@@ -13,10 +13,19 @@ final class HomeController extends AbstractController
     public function index(AlbumRepository $albumRepository): Response
     {
 
-        $albums = $albumRepository->findAll();
+        // $albums = $albumRepository->findAll();
+        $eps = $albumRepository->findBy(['type' => 'EP']);
+        $singles = $albumRepository->findBy(['type' => 'Single']);
+        $albums = $albumRepository->findBy(['type' => 'Album']);
+        $albumAfter = $albumRepository->getAlbumsAfter20s();
+        $albumBefore = $albumRepository->getAlbumsBefore20s();
 
         return $this->render('home/index.html.twig', [
-            'albums' => $albums
+            'albums' => $albums,
+            'eps' => $eps,
+            'singles' => $singles,
+            'albumAfter' => $albumAfter,
+            'albumBefore' => $albumBefore
         ]);
     }
 }

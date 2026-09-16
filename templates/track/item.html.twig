@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chanson : {{ track.title }}{% endblock %}
+
+
+{% block body %}
+    <div class="container">
+        <h2 class="mt-4 mb-4">Chanson : {{ track.title }}</h2>
+        <p>Numéro de piste : {{ track.numberTrack }}</p>
+        <p>Durée : {{ track.duration|date('h:i:s') }}</p>
+        <p>Album : {{ track.album.title }}</p>
+        <p>Contenu explicite : {{ track.isExplicit ? 'Oui' : 'Non' }}</p>
+        <p>Nombre d'écoutes : {{ track.playCount }}</p>
+        {% for genre in track.genres %}
+            <p>Genre : {{ track.genre }}</p>
+        {% endfor %}
+
+
+    </div>
+{% endblock %}

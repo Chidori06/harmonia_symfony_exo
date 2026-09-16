@@ -27,13 +27,13 @@ class AppFixtures extends Fixture
                 'label' => $value
             ]);
         }
-        ArtistFactory::createMany(100);
-        UserFactory::createMany(100);
-        AlbumFactory::createMany(100);
+        ArtistFactory::createMany(50);
+        UserFactory::createMany(50);
+        AlbumFactory::createMany(50);
         PlaylistFactory::createMany(15);
         TrackFactory::createMany(100);
-        ListenHistoryFactory::createMany(100);
-        FavoriteFactory::createMany(100);
+        ListenHistoryFactory::createMany(50);
+        FavoriteFactory::createMany(50);
 
 
         $manager->flush();
