@@ -13,9 +13,7 @@
         <p>Nombre d'écoutes : {{ track.playCount }}</p>
         <p>Genre(s) :</p>
         {% for genre in track.genres %}
-            <p> {{ genre.label }}</p>
+            <p style="color:{{ genre.color }} "> {{ genre.label }}</p>
         {% endfor %}
-
-
     </div>
 {% endblock %}

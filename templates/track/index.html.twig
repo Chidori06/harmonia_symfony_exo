@@ -5,10 +5,32 @@
 {% block body %}
     <div class="container">
         <h2 class="mt-4 mb-4">Toutes les chansons :</h2>
-        <ul>
-            {% for track in tracks %}
-                <li> <a href="{{ path('app_track_item', {'id': track.id}) }}" class="card-text">{{ track.numberTrack }} - {{ track.title }}</a></li>
-            {% endfor %}
-        </ul>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col">Album</th>
+                    <th scope="col">Genre(s)</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for track in tracks %}
+                    <tr>
+                        <th scope="row">{{ track.id }}</th>
+                        <td>{{ track.title }}</td>
+                        <td>{{ track.duration|date('h:i:s') }}</td>
+                        <td>{{ track.album.title }}</td>
+                        <td> {% for genre in track.genres %}
+                                <p style="color:{{ genre.color }} "> {{ genre.label }}</p>
+                            {% endfor %}</td>
+                        <td><a href="{{ path('app_track_item', {'id': track.id}) }}" class="btn btn-success">Voir</a></td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

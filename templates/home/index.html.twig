@@ -10,17 +10,7 @@
         <div class="row">
             {% for ep in eps %}
                 <div class="col mb-3">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset(ep.cover) }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ ep.title }}</h5>
-                            <h6 class="card-title">{{ ep.artist.name }}</h6>
-                            <p class="card-text">{{ ep.type }}</p>
-                            <p class="card-text">Nombre de pistes : {{ ep.tracks|length }}</p>
-                            <p class="card-text">Date de sortie : {{ ep.releaseAt|date('d/m/Y') }}</p>
-                            <a href="{{ path('app_album_item', {'id': ep.id}) }}" class="btn btn-primary">Plus de détail</a>
-                        </div>
-                    </div>
+                    {% include "components/album-card.html.twig" with {album: ep} %}
                 </div>
             {% endfor %}
         </div>
@@ -28,17 +18,7 @@
         <div class="row">
             {% for single in singles %}
                 <div class="col mb-3">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset(single.cover) }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ single.title }}</h5>
-                            <h6 class="card-title">{{ single.artist.name }}</h6>
-                            <p class="card-text">{{ single.type }}</p>
-                            <p class="card-text">Nombre de pistes : {{ single.tracks|length }}</p>
-                            <p class="card-text">Date de sortie : {{ single.releaseAt|date('d/m/Y') }}</p>
-                            <a href="{{ path('app_album_item', {'id': single.id}) }}" class="btn btn-primary">Plus de détail</a>
-                        </div>
-                    </div>
+                    {% include "components/album-card.html.twig" with {album: single} %}
                 </div>
             {% endfor %}
         </div>
@@ -46,17 +26,7 @@
         <div class="row">
             {% for album in albums %}
                 <div class="col mb-3">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset(album.cover) }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ album.title }}</h5>
-                            <h6 class="card-title">{{ album.artist.name }}</h6>
-                            <p class="card-text">{{ album.type }}</p>
-                            <p class="card-text">Nombre de pistes : {{ album.tracks|length }}</p>
-                            <p class="card-text">Date de sortie : {{ album.releaseAt|date('d/m/Y') }}</p>
-                            <a href="{{ path('app_album_item', {'id': album.id}) }}" class="btn btn-primary">Plus de détail</a>
-                        </div>
-                    </div>
+                    {% include "components/album-card.html.twig" with {album: album} %}
                 </div>
             {% endfor %}
         </div>
@@ -65,17 +35,7 @@
         <div class="row">
             {% for album in albumAfter %}
                 <div class="col mb-3">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset(album.cover) }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ album.title }}</h5>
-                            <h6 class="card-title">{{ album.artist.name }}</h6>
-                            <p class="card-text">{{ album.type }}</p>
-                            <p class="card-text">Nombre de pistes : {{ album.tracks|length }}</p>
-                            <p class="card-text">Date de sortie : {{ album.releaseAt|date('d/m/Y') }}</p>
-                            <a href="{{ path('app_album_item', {'id': album.id}) }}" class="btn btn-primary">Plus de détail</a>
-                        </div>
-                    </div>
+                    {% include "components/album-card.html.twig" with {album: album} %}
                 </div>
             {% endfor %}
         </div>
@@ -83,17 +43,7 @@
         <div class="row">
             {% for album in albumBefore %}
                 <div class="col mb-3">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset(album.cover) }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ album.title }}</h5>
-                            <h6 class="card-title">{{ album.artist.name }}</h6>
-                            <p class="card-text">{{ album.type }}</p>
-                            <p class="card-text">Nombre de pistes : {{ album.tracks|length }}</p>
-                            <p class="card-text">Date de sortie : {{ album.releaseAt|date('d/m/Y') }}</p>
-                            <a href="{{ path('app_album_item', {'id': album.id}) }}" class="btn btn-primary">Plus de détail</a>
-                        </div>
-                    </div>
+                    {% include "components/album-card.html.twig" with {album: album} %}
                 </div>
             {% endfor %}
         </div>

@@ -20,6 +20,10 @@ final class HomeController extends AbstractController
         $albumAfter = $albumRepository->getAlbumsAfter20s();
         $albumBefore = $albumRepository->getAlbumsBefore20s();
 
+        //Soit entité user soit null
+        // $user = $this->getUser();
+        // dump($user);
+
         return $this->render('home/index.html.twig', [
             'albums' => $albums,
             'eps' => $eps,

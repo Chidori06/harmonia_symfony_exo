@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue {{ app.user.pseudonym }} {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="mt-4 mb-4">Bienvenue {{ app.user.pseudonym }} !</h2>
+        <div>
+            <h3 class="mt-4 mb-4">Informations personnelles :</h3>
+            <h4 class="mt-4 mb-4">Email :</h4>
+            <p>{{ app.user.email }}</p>
+            <h4 class="mt-4 mb-4">Membre depuis le :</h4>
+            <p>{{ app.user.createdAt|date('d/m/Y') }}</p>
+        </div>
+        
+        <div>
+            <h5>Mes playlists :</h5>
+            {% for playlist in app.user.playlists %}
+                <p>{{ playlist.name }}</p>
+                <p>{{ playlist.description }}</p>
+                <p>Statut : {{ playlist.isPublic ? 'Privé' : 'Public' }}</p>
+                <p>Liste des chansons de la playlist :</p>
+                {% for track in playlist.tracks %}
+                    <p>{{ track.title }}</p>
+                {% endfor %}
+            {% else %}
+                <p>Vous n'avez aucune playlist...</p>
+                <a href="#" class="btn btn-primary">Créer une playlist</a>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <h5>Mes favoris :</h5>
+            {% for fav in app.user.favorites %}
+                <p>{{ fav.tracks.title }}</p>
+            {% else %}
+                <p>Vous n'avez aucune chanson favorite...</p>
+            {% endfor %} 
+        </div>
+      
+        <div>
+            <h5>Mon historique d'écoute :</h5>
+            {% for list in app.user.listenHistories %}
+                <p>{{ list.track.title }} - {{ list.listenAt|date('d/m/Y h:i:s') }}</p>
+            {% else %}
+                <p>Vous n'avez aucun historique d'écoute...</p>
+            {% endfor %} 
+        </div>
+      
+
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+
+<div class="card" style="width: 18rem;">
+    <img src="{{ asset(album.cover) }}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{ album.title }}</h5>
+        <h6 class="card-title">{{ album.artist.name }}</h6>
+        <p class="card-text">{{ album.type }}</p>
+        <p class="card-text">Nombre de pistes : {{ album.tracks|length }}</p>
+        <p class="card-text">Date de sortie : {{ album.releaseAt|date('d/m/Y') }}</p>
+        <a href="{{ path('app_album_item', {'id': album.id}) }}" class="btn btn-primary">Plus de détail</a>
+    </div>
+</div>
+
