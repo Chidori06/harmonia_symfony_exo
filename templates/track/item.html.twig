@@ -11,8 +11,9 @@
         <p>Album : {{ track.album.title }}</p>
         <p>Contenu explicite : {{ track.isExplicit ? 'Oui' : 'Non' }}</p>
         <p>Nombre d'écoutes : {{ track.playCount }}</p>
+        <p>Genre(s) :</p>
         {% for genre in track.genres %}
-            <p>Genre : {{ track.genre }}</p>
+            <p> {{ genre.label }}</p>
         {% endfor %}
 
 
