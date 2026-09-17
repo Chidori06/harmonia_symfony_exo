@@ -1,52 +1,246 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenue {{ app.user.pseudonym }} {% endblock %}
+{% block title %}Bienvenue {{ app.user.pseudonym }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h2 class="mt-4 mb-4">Bienvenue {{ app.user.pseudonym }} !</h2>
-        <div>
-            <h3 class="mt-4 mb-4">Informations personnelles :</h3>
-            <h4 class="mt-4 mb-4">Email :</h4>
-            <p>{{ app.user.email }}</p>
-            <h4 class="mt-4 mb-4">Membre depuis le :</h4>
-            <p>{{ app.user.createdAt|date('d/m/Y') }}</p>
-        </div>
-        
-        <div>
-            <h5>Mes playlists :</h5>
-            {% for playlist in app.user.playlists %}
-                <p>{{ playlist.name }}</p>
-                <p>{{ playlist.description }}</p>
-                <p>Statut : {{ playlist.isPublic ? 'Privé' : 'Public' }}</p>
-                <p>Liste des chansons de la playlist :</p>
-                {% for track in playlist.tracks %}
-                    <p>{{ track.title }}</p>
-                {% endfor %}
-            {% else %}
-                <p>Vous n'avez aucune playlist...</p>
-                <a href="#" class="btn btn-primary">Créer une playlist</a>
-            {% endfor %}
-        </div>
-        
-        <div>
-            <h5>Mes favoris :</h5>
-            {% for fav in app.user.favorites %}
-                <p>{{ fav.tracks.title }}</p>
-            {% else %}
-                <p>Vous n'avez aucune chanson favorite...</p>
-            {% endfor %} 
-        </div>
-      
-        <div>
-            <h5>Mon historique d'écoute :</h5>
-            {% for list in app.user.listenHistories %}
-                <p>{{ list.track.title }} - {{ list.listenAt|date('d/m/Y h:i:s') }}</p>
-            {% else %}
-                <p>Vous n'avez aucun historique d'écoute...</p>
-            {% endfor %} 
-        </div>
-      
+    <div class="container py-4">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+            <div class="card-header bg-dark text-white border-0 p-4">
+                <div class="d-flex align-items-center gap-4">
+                    <div
+                        class="bg-success rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                        style="width: 80px; height: 80px;"
+                    >
+                        <span class="display-6 fw-bold">
+                            {{ app.user.pseudonym|first|upper }}
+                        </span>
+                    </div>
 
+                    <div>
+                        <h1 class="fw-bold mb-1">{{ app.user.pseudonym }}</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <h4 class="fw-bold mb-3">Informations personnelles</h4>
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <div class="bg-light rounded-3 p-3 h-100">
+                            <small class="text-secondary d-block mb-1">
+                                Pseudonyme
+                            </small>
+                            <span class="fw-semibold">
+                                {{ app.user.pseudonym }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="bg-light rounded-3 p-3 h-100">
+                            <small class="text-secondary d-block mb-1">
+                                Adresse email
+                            </small>
+                            <span class="fw-semibold">
+                                {{ app.user.email }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="bg-light rounded-3 p-3 h-100">
+                            <small class="text-secondary d-block mb-1">
+                                Membre depuis
+                            </small>
+                            <span class="fw-semibold">
+                                {{ app.user.createdAt|date('d/m/Y') }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="bg-light rounded-3 p-3 h-100">
+                            <small class="text-secondary d-block mb-1">
+                                Playlists
+                            </small>
+
+                            <span class="fw-semibold">
+                                {{ app.user.playlists|length }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+            <div class="card-header bg-white border-0 p-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="fw-bold mb-1">Mes playlists</h4>
+                        <small class="text-secondary">
+                            {{ app.user.playlists|length }} playlist{{ app.user.playlists|length > 1 ? 's' : '' }}
+                        </small>
+                    </div>
+                    <a
+                        href="{{ path('app_playlist', {'user': app.user.pseudonym}) }}"
+                        class="btn btn-outline-dark btn-sm rounded-pill"
+                    >
+                        Voir tout
+                    </a>
+                </div>
+            </div>
+
+            {% if app.user.playlists|length > 0 %}
+                <div class="card-body pt-0">
+                    <div class="row g-3">
+                        {% for playlist in app.user.playlists %}
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="card h-100 border-0 bg-light rounded-3">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <h5 class="fw-bold mb-0">{{ playlist.name }} </h5>
+                                            {% if playlist.isPublic %}
+                                                <span class="badge bg-success rounded-pill">
+                                                    Public
+                                                </span>
+                                            {% else %}
+                                                <span class="badge bg-secondary rounded-pill">
+                                                    Privée
+                                                </span>
+                                            {% endif %}
+                                        </div>
+                                        <p class="text-secondary mb-0">
+                                            {{ playlist.description }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="card-body text-center py-5">
+                    <p class="text-secondary mb-3">
+                        Vous n'avez aucune playlist...
+                    </p>
+
+                    <a
+                        href="#"
+                        class="btn btn-success rounded-pill px-4"
+                    >
+                        Créer une playlist
+                    </a>
+
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+            <div class="card-header bg-white border-0 p-4">
+                <h4 class="fw-bold mb-1">
+                    Mes favoris
+                </h4>
+
+                <small class="text-secondary">
+                    Vos chansons préférées
+                </small>
+            </div>
+
+            {% if app.user.favorites|length > 0 %}
+                <div class="list-group list-group-flush">
+                    {% for fav in app.user.favorites %}
+                        <a
+                            href="{{ path('app_track_item', {'id': fav.tracks.id}) }}"
+                            class="list-group-item list-group-item-action border-0 px-4 py-3"
+                        >
+
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="text-danger fs-5">
+                                        ♥
+                                    </span>
+                                </div>
+
+                                <div class="col">
+                                    <div class="fw-semibold">
+                                        {{ fav.tracks.title }}
+                                    </div>
+
+                                    <small class="text-secondary">
+                                        {{ fav.tracks.album.artist.name }}
+                                        •
+                                        {{ fav.tracks.album.title }}
+                                    </small>
+                                </div>
+
+                                <div class="col-auto text-secondary">
+                                    {{ fav.tracks.duration|date('h:i:s') }}
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="card-body text-center py-5">
+                    <p class="text-secondary mb-0">
+                        Vous n'avez aucune chanson favorite...
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+            <div class="card-header bg-dark text-white border-0 p-4">
+                <h4 class="fw-bold mb-1">
+                    Mon historique d'écoute
+                </h4>
+                <small class="text-white-50">
+                    Vos dernières chansons écoutées
+                </small>
+            </div>
+
+            {% if app.user.listenHistories|length > 0 %}
+                <div class="list-group list-group-flush">
+                    {% for list in app.user.listenHistories %}
+                        <a
+                            href="{{ path('app_track_item', {'id': list.track.id}) }}"
+                            class="list-group-item list-group-item-action border-0 px-4 py-3"
+                        >
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="text-secondary">
+                                        {{ '%02d'|format(list.track.numberTrack) }}
+                                    </span>
+                                </div>
+
+                                <div class="col">
+                                    <div class="fw-semibold">
+                                        {{ list.track.title }}
+                                    </div>
+                                    <small class="text-secondary">
+                                        {{ list.track.album.artist.name }}
+                                        •
+                                        {{ list.track.album.title }}
+                                    </small>
+                                </div>
+
+                                <div class="col-auto">
+                                    <small class="text-secondary">
+                                        {{ list.listenAt|date('d/m/Y H:i') }}
+                                    </small>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="card-body text-center py-5">
+                    <p class="text-secondary mb-0">
+                        Vous n'avez aucun historique d'écoute...
+                    </p>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

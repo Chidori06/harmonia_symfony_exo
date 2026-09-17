@@ -5,25 +5,25 @@
 {% block body %}
     <div class="container">
         <h1 class="mt-4 mb-4">Retrouvez toutes nos musiques</h1>
-  
-        <h2 class="mt-4 mb-4">Tous les EPs :</h2>
-        <div class="row">
+
+        <h3 class="mt-4 mb-4">Tous les EPs :</h3>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for ep in eps %}
                 <div class="col mb-3">
                     {% include "components/album-card.html.twig" with {album: ep} %}
                 </div>
             {% endfor %}
         </div>
-        <h2 class="mt-4 mb-4">Tous les singles :</h2>
-        <div class="row">
+        <h3 class="mt-4 mb-4">Tous les singles :</h3>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for single in singles %}
                 <div class="col mb-3">
                     {% include "components/album-card.html.twig" with {album: single} %}
                 </div>
             {% endfor %}
         </div>
-        <h2 class="mt-4 mb-4">Tous les albums :</h2>
-        <div class="row">
+        <h3 class="mt-4 mb-4">Tous les albums :</h3>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for album in albums %}
                 <div class="col mb-3">
                     {% include "components/album-card.html.twig" with {album: album} %}
@@ -31,16 +31,16 @@
             {% endfor %}
         </div>
 
-        <h2 class="mt-4 mb-4">Tous les albums sortis après les années 2000 :</h2>
-        <div class="row">
+        <h4 class="mt-4 mb-4">Tous les albums sortis après les années 2000 :</h4>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for album in albumAfter %}
                 <div class="col mb-3">
                     {% include "components/album-card.html.twig" with {album: album} %}
                 </div>
             {% endfor %}
         </div>
-        <h2 class="mt-4 mb-4">Tous les albums sortis avant les années 2000 :</h2>
-        <div class="row">
+        <h4 class="mt-4 mb-4">Tous les albums sortis avant les années 2000 :</h4>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for album in albumBefore %}
                 <div class="col mb-3">
                     {% include "components/album-card.html.twig" with {album: album} %}

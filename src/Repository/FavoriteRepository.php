@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Favorite;
+use App\Entity\Track;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,7 +18,26 @@ class FavoriteRepository extends ServiceEntityRepository
         parent::__construct($registry, Favorite::class);
     }
 
-//    /**
+    public function findOneByUserAndTrack(User $user, Track $track): ?Favorite
+    {
+        return $this->findOneBy([
+            'user' => $user,
+            'tracks' => $track,
+        ]);
+    }
+    public function findTrackIdsByUser(User $user): array
+    {
+        return $this->createQueryBuilder('fav')
+            ->select('IDENTITY(fav.tracks) AS trackId')
+            ->andWhere('fav.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleColumnResult();
+    }
+
+
+
+    //    /**
 //     * @return Favorite[] Returns an array of Favorite objects
 //     */
 //    public function findByExampleField($value): array
@@ -31,7 +52,7 @@ class FavoriteRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Favorite
+    //    public function findOneBySomeField($value): ?Favorite
 //    {
 //        return $this->createQueryBuilder('f')
 //            ->andWhere('f.exampleField = :val')

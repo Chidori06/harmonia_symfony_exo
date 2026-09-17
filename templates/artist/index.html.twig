@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des artistes{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">Tous les artistes</h2>
+                <p class="text-secondary mb-0">
+                    {{ artists|length }} artiste(s)
+                </p>
+            </div>
+            <a href="{{ path('app_home') }}"class="btn btn-outline-secondary rounded-pill">← Retour</a>
+        </div>
+        <a href="{{ path('app_artist_add') }}"class="btn btn-outline-success btn-sm rounded-pill px-3 mb-4">Ajouter un artiste</a>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" class="ps-4">#</th>
+                            <th scope="col">Nom/Groupe</th>
+                            <th scope="col">Biographie</th>
+                            <th scope="col">Pays</th>
+                            <th scope="col" class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for artist in artists %}
+                            <tr>
+                                <th scope="row" class="ps-4 text-secondary">
+                                    {#Permet d'avoir un index de 1 à ... #}
+                                    {{ loop.index }}
+                                </th>
+                                <td>
+                                    <span class="fw-semibold">
+                                        {{ artist.name }}
+                                    </span>
+                                </td>
+                                <td class="text-secondary">
+                                    {{ artist.biography }}
+                                </td>
+                                <td>
+                                    <span class="text-secondary">
+                                        {{ artist.country }}
+                                    </span>
+                                </td>
+                                
+                                <td class="text-end pe-4">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <a
+                                            href="{{ path('app_artist_edit', {'id': artist.id}) }}"
+                                            class="btn btn-outline-success btn-sm rounded-pill px-3 d-flex justify-content-center align-items-center"
+                                        >
+                                            Editer
+                                        </a>
+
+                                        <a
+                                            href="{{ path('app_album_add', {'id': artist.id}) }}"
+                                            class="btn btn-outline-success btn-sm rounded-pill px-3 d-flex justify-content-center align-items-center"
+                                        >
+                                            Ajouter un album
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

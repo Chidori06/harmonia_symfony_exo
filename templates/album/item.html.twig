@@ -4,29 +4,80 @@
 
 
 {% block body %}
-    <div class="container">
-        <h2 class="mt-4 mb-4">Détail de l'album {{ album.title }} :</h2>
-        <a href="{{ path('app_home') }}" class="btn btn-primary mb-4">Retour</a>
-        <div class="d-flex justify-content-center">
-            <div class="row">
-                <div class="col mb-3">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset(album.cover) }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ album.title }}</h5>
-                            <h6 class="card-title">{{ album.artist.name }}</h6>
-                            <p class="card-text">{{ album.type }}</p>
-                            <p class="card-text">Nombre de pistes : {{ album.tracks|length }}</p>
-                            <p class="card-text">Titre des pistes :</p>
-                            <ul>
-                                {% for track in album.tracks %}
-                                    <li> <a href="{{ path('app_track_item', {'id': track.id}) }}" class="card-text">{{ track.numberTrack }} - {{ track.title }}</a></li>
-                                {% endfor %}
-                            </ul>
-                            <p class="card-text">Année de sortie : {{ album.releaseAt|date('Y') }}</p>
+    <div class="container py-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-1"> {{ album.title }}</h2>
+                <p class="text-secondary mb-0">Détail de l'album</p>
+            </div>
+            <a href="{{ path('app_home') }}"class="btn btn-outline-secondary rounded-pill">← Retour</a>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+            <div class="card-body p-4">
+                <div class="row align-items-center g-4">
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <img
+                            src="{{ asset(album.cover) }}"class="img-fluid rounded-3 shadow"
+                            alt="Pochette de {{ album.title }}"
+                        >
+                    </div>
+
+                    <div class="col-12 col-md-8 col-lg-9">
+                        <span class="badge bg-primary rounded-pill mb-3">{{ album.type }}</span>
+                        <h2 class="display-5 fw-bold mb-2">{{ album.title }}</h2>
+                        <h4 class="text-secondary mb-4">{{ album.artist.name }}</h4>
+                        <div class="d-flex flex-wrap gap-3 text-secondary mb-4">
+                            <span><strong>{{ album.tracks|length }}</strong> piste(s)</span>
+                            <span>•</span>
+                            <span>{{ album.releaseAt|date('Y') }}</span>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div id="tracks" class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-dark text-white border-0 p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="fw-bold mb-1"> Pistes</h4>
+                    <small class="text-white-50">
+                        {{ album.tracks|length }} chansons
+                    </small>
+                </div>
+              
+                <a href="{{ path('app_track_add', {'id': album.id}) }}" class="btn btn-outline-light btn-sm rounded-pill">
+                    Ajouter une chanson
+                </a>
+            </div>
+
+            <div class="list-group list-group-flush">
+                {% for track in album.tracks %}
+                    <a
+                        href="{{ path('app_track_item', {'id': track.id}) }}"
+                        class="list-group-item list-group-item-action border-0 py-3 px-4"
+                    >
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <span class="text-secondary">
+                                    {{ track.numberTrack }}
+                                </span>
+                            </div>
+                            <div class="col">
+                                <div class="fw-semibold">
+                                    {{ track.title }}
+                                </div>
+                                <small class="text-secondary">
+                                    {{ album.artist.name }}
+                                </small>
+                            </div>
+                            <div class="col-auto text-secondary">
+                                {{ track.duration|date('h:i:s') }}
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
             </div>
         </div>
     </div>

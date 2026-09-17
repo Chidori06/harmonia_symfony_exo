@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une chanson{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card border-secondary rounded-4 shadow-lg">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold mb-1">Ajouter une chanson</h2>
+                            <small class="text-muted">
+                                Album : {{ album.title }}
+                            </small>
+                        </div>
+                        {{ form_start(trackForm) }}
+                        <div class="mb-4">
+                            {{ form_label(trackForm.title, null, {
+                                'label_attr': {'class': 'form-label fw-semibold'}
+                            }) }}
+
+                            {{ form_widget(trackForm.title, {
+                                'attr': {
+                                    'class': 'form-control bg-dark text-white border-secondary'
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form_label(trackForm.duration, null, {
+                                'label_attr': {'class': 'form-label fw-semibold'}
+                            }) }}
+
+                            {{ form_widget(trackForm.duration, {
+                                'attr': {
+                                    'class': 'form-control bg-dark text-white border-secondary',
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form_label(trackForm.numberTrack, null, {
+                                'label_attr': {'class': 'form-label fw-semibold'}
+                            }) }}
+
+                            {{ form_widget(trackForm.numberTrack, {
+                                'attr': {
+                                    'class': 'form-control bg-dark text-white border-secondary'
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form_label(trackForm.genres, null, {
+                                'label_attr': {'class': 'form-label fw-semibold'}
+                            }) }}
+
+                            {{ form_widget(trackForm.genres, {
+                                'attr': {
+                                    'class': 'form-select bg-dark text-white border-secondary'
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-4">
+                            <div class="form-check">
+                                {{ form_widget(trackForm.isExplicit, {
+                                    'attr': {
+                                        'class': 'form-check-input'
+                                    }
+                                }) }}
+
+                                {{ form_label(trackForm.isExplicit, null, {
+                                    'label_attr': {
+                                        'class': 'form-check-label fw-semibold'
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success rounded-pill px-4">
+                            Ajouter
+                        </button>
+                        {{ form_end(trackForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

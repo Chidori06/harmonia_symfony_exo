@@ -3,22 +3,74 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-
-    <div class="container">
-
-        <h1>Register</h1>
-
-        {{ form_errors(registrationForm) }}
-
-        {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.pseudonym) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn btn-primary">Register</button>
-        {{ form_end(registrationForm) }}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card border-secondary rounded-4 shadow-lg">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold mb-1">Créer un compte</h2>
+                        </div>
+                        {{ form_start(registrationForm) }}
+                        <div class="mb-4">
+                            {{ form_label(registrationForm.email, null, {
+                                'label_attr': {
+                                    'class': 'form-label fw-semibold'
+                                }
+                            }) }}
+                            {{ form_widget(registrationForm.email, {
+                                'attr': {
+                                    'class': 'form-control bg-dark text-white border-secondary',
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form_label(registrationForm.pseudonym, null, {
+                                'label_attr': {
+                                    'class': 'form-label fw-semibold'
+                                }
+                            }) }}
+                            {{ form_widget(registrationForm.pseudonym, {
+                                'attr': {
+                                    'class': 'form-control bg-dark text-white border-secondary',
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form_label(registrationForm.plainPassword, 'Mot de passe', {
+                                'label_attr': {
+                                    'class': 'form-label fw-semibold'
+                                }
+                            }) }}
+                            {{ form_widget(registrationForm.plainPassword, {
+                                'attr': {
+                                    'class': 'form-control bg-dark text-white border-secondary',
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-4">
+                            <div class="form-check">
+                                {{ form_widget(registrationForm.agreeTerms, {
+                                    'attr': {
+                                        'class': 'form-check-input'
+                                    }
+                                }) }}
+                                {{ form_label(registrationForm.agreeTerms, null, {
+                                    'label_attr': {
+                                        'class': 'form-check-label'
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success rounded-pill">
+                                Créer mon compte
+                            </button>
+                        </div>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

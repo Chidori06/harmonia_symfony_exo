@@ -25,7 +25,7 @@ class Track
     private ?int $numberTrack = null;
 
     #[ORM\Column]
-    private ?int $playCount = null;
+    private ?int $playCount = 0;
 
     #[ORM\Column]
     private ?bool $isExplicit = null;

@@ -4,16 +4,160 @@
 
 
 {% block body %}
-    <div class="container">
-        <h2 class="mt-4 mb-4">Chanson : {{ track.title }}</h2>
-        <p>Numéro de piste : {{ track.numberTrack }}</p>
-        <p>Durée : {{ track.duration|date('h:i:s') }}</p>
-        <p>Album : {{ track.album.title }}</p>
-        <p>Contenu explicite : {{ track.isExplicit ? 'Oui' : 'Non' }}</p>
-        <p>Nombre d'écoutes : {{ track.playCount }}</p>
-        <p>Genre(s) :</p>
-        {% for genre in track.genres %}
-            <p style="color:{{ genre.color }} "> {{ genre.label }}</p>
-        {% endfor %}
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">{{ track.title }}</h2>
+                <p class="text-secondary mb-0"> Détail de la chanson</p>
+            </div>
+
+            <a
+                href="{{ path('app_home') }}"
+                class="btn btn-outline-secondary rounded-pill"
+            >
+                ← Retour
+            </a>
+        </div>
+        
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-dark text-white border-0 p-4 d-flex align-items-center gap-3">
+                <div
+                    class="bg-success rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                    style="width: 60px; height: 60px;"
+                >
+                    <span class="fs-3">♫</span>
+                </div>
+                <div class="flex-grow-1 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3 class="fw-bold mb-1">{{ track.title }}</h3>
+
+                        <div class="text-white-50">
+                            {{ track.album.artist.name }}
+                        </div>
+                    </div>
+                    {% if app.user %}
+                        {% if track.id in favoriteTrackIds %}
+                            <a
+                                href="{{ path('app_favorite_toggle', {'id': track.id}) }}"
+                                class="btn btn-danger rounded-pill px-3"
+                            >
+                                ♥ Retirer des favoris
+                            </a>
+                        {% else %}
+                            <a
+                                href="{{ path('app_favorite_toggle', {'id': track.id}) }}"
+                                class="btn btn-outline-danger rounded-pill px-3"
+                            >
+                                ♡ Ajouter aux favoris
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-body p-4">
+            <div class="row g-3">
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="bg-light rounded-3 p-3 h-100">
+                        <small class="text-secondary d-block mb-1">
+                            Numéro de piste
+                        </small>
+
+                        <span class="fs-5 fw-semibold">
+                            {{ '%02d'|format(track.numberTrack) }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="bg-light rounded-3 p-3 h-100">
+                        <small class="text-secondary d-block mb-1">
+                            Durée
+                        </small>
+
+                        <span class="fs-5 fw-semibold">
+                            {{ track.duration|date('h:i:s') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="bg-light rounded-3 p-3 h-100">
+                        <small class="text-secondary d-block mb-1">
+                            Nombre d'écoutes
+                        </small>
+
+                        <span class="fs-5 fw-semibold">
+                            {{ track.playCount }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                    <div class="bg-light rounded-3 p-3 h-100">
+                        <small class="text-secondary d-block mb-1">
+                            Album
+                        </small>
+                        <a
+                            href="{{ path('app_album_item', {'id': track.album.id}) }}"
+                            class="fw-semibold text-decoration-none"
+                        >
+                            {{ track.album.title }}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                    <div class="bg-light rounded-3 p-3 h-100">
+                        <small class="text-secondary d-block mb-1">
+                            Contenu explicite
+                        </small>
+
+                        {% if track.isExplicit %}
+                            <span class="badge bg-danger rounded-pill">
+                                Explicite
+                            </span>
+                        {% else %}
+                            <span class="badge bg-success rounded-pill">
+                                Tout public
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="bg-light rounded-3 p-3">
+                        <small class="text-secondary d-block mb-2">
+                            Genre(s)
+                        </small>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for genre in track.genres %}
+                                <a
+                                    href="{{ path('app_genre_item', {'id': genre.id}) }}"
+                                    class="badge rounded-pill text-decoration-none"
+                                    style="background-color: {{ genre.color }}"
+                                >
+                                    {{ genre.label }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer bg-white border-0 p-4">
+            <a
+                href="{{ path('app_album_item', {'id': track.album.id}) }}"
+                class="btn btn-dark rounded-pill px-4"
+            >
+                ← Retour à l'album
+            </a>
+        </div>
     </div>
+    </div>
+
 {% endblock %}

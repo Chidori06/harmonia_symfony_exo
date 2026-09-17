@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un artiste{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+
+                <div class="card border-secondary rounded-4 shadow-lg">
+                    <div class="card-body p-4 p-md-5">
+
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold mb-1">Ajouter un artiste ou un groupe</h2>
+                        </div>
+
+                        {{ form_start(artistForm) }}
+
+                        <div class="mb-4">
+                            {{ form_label(artistForm.name, null, {
+                            'label_attr': {'class': 'form-label fw-semibold'}
+                        }) }}
+
+                            {{ form_widget(artistForm.name, {
+                            'attr': {
+                                'class': 'form-control bg-dark text-white border-secondary',
+                            }
+                        }) }}
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form_label(artistForm.biography, null, {
+                            'label_attr': {'class': 'form-label fw-semibold'}
+                        }) }}
+
+                            {{ form_widget(artistForm.biography, {
+                            'attr': {
+                                'class': 'form-control bg-dark text-white border-secondary',
+                            }
+                        }) }}
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form_label(artistForm.country, null, {
+                            'label_attr': {'class': 'form-label fw-semibold'}
+                        }) }}
+
+                            {{ form_widget(artistForm.country, {
+                            'attr': {
+                                'class': 'form-control bg-dark text-white border-secondary',
+                            }
+                        }) }}
+                        </div>
+                        <button type="submit" class="btn btn-success rounded-pill px-4">
+                            Ajouter
+                        </button>
+                        {{ form_end(artistForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
