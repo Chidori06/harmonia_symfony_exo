@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 final class AlbumController extends AbstractController
 {
@@ -29,7 +30,7 @@ final class AlbumController extends AbstractController
     }
 
     #[Route('/add-album/{id}', name: 'app_album_add')]
-    public function addAlbum(Artist $artist, Request $request, EntityManagerInterface $entityManager): Response
+    public function addAlbum(Artist $artist, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $album = new Album();
 
@@ -38,6 +39,22 @@ final class AlbumController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $coverFile = $form->get('cover')->getData();
+
+            $originalFilename = pathinfo(
+                $coverFile->getClientOriginalName(),
+                PATHINFO_FILENAME
+            );
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename
+                . '-' . uniqid()
+                . '.' . $coverFile->guessExtension();
+            $coverFile->move(
+                $this->getParameter('kernel.project_dir') . '/public/uploads',
+                $newFilename
+            );
+            $album->setCover('uploads/' . $newFilename);
 
             $album->setArtist($artist);
             $album->setCreatedAt(new \DateTimeImmutable());
@@ -55,4 +72,6 @@ final class AlbumController extends AbstractController
             'artist' => $artist,
         ]);
     }
+
+
 }

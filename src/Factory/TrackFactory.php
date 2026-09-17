@@ -37,9 +37,12 @@ final class TrackFactory extends PersistentObjectFactory
     #[\Override]
     protected function defaults(): array|callable
     {
+
+        $minutes = self::faker()->numberBetween(2, 6);
+        $seconds = self::faker()->numberBetween(0, 59);
         return [
             'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'duration' => self::faker()->numberBetween(0, 210000),
+            'duration' => ($minutes * 60) + $seconds,
             'isExplicit' => self::faker()->boolean(),
             'numberTrack' => self::faker()->numberBetween(1, 20),
             'playCount' => self::faker()->randomNumber(),
