@@ -74,4 +74,28 @@ final class TrackController extends AbstractController
             'album' => $album,
         ]);
     }
+
+    #[Route('/edit-track/{id}', name: 'app_track_edit')]
+    public function editTrack(Track $track, Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        $form = $this->createForm(TrackType::class, $track);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $form->getData();
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_track_item', [
+                'id' => $track->getId()
+            ]);
+        }
+
+        return $this->render('track/edit.html.twig', [
+            'trackForm' => $form->createView(),
+        ]);
+    }
 }

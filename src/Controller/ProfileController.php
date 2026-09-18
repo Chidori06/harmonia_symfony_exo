@@ -16,7 +16,7 @@ final class ProfileController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
         return $this->render('profile/index.html.twig', [
-
+            'user' => $user
         ]);
     }
 }

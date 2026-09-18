@@ -33,6 +33,11 @@
                             <span>•</span>
                             <span>{{ album.releaseAt|date('Y') }}</span>
                         </div>
+                        <div>
+                            <a href="{{ path('app_album_edit', {'id': album.id}) }}" class="btn btn-outline-dark btn-sm rounded-pill">
+                                Editer un album
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

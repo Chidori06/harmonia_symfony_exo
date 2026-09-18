@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'artiste {{ artist.name }} {% endblock %}
+
+
+{% block body %}
+    <div class="container py-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-1"> {{ artist.name }}</h2>
+                <p class="text-secondary mb-0">Détail de l'artiste</p>
+            </div>
+            <a href="{{ path('app_artist') }}"class="btn btn-outline-secondary rounded-pill">← Retour</a>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+            <div class="card-body p-4">
+                <div class="row align-items-center g-4">
+
+                    <div class="col-12 col-md-8 col-lg-9">
+                        <h2 class="display-5 fw-bold mb-2">Biographie</h2>
+                        <span>{{ artist.biography }}</span>
+                        <h4 class="text-secondary mt-4 mb-4">Pays d'origine</h4>
+                        <span>{{ artist.country }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tracks" class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-dark text-white border-0 p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="fw-bold mb-1"> Albums</h4>
+                    <small class="text-white-50">
+                        {{ artist.albums|length }} Albums
+                    </small>
+                </div>
+                <a
+                    href="{{ path('app_album_add', {'id': artist.id}) }}"
+                    class="btn btn-outline-light btn-sm rounded-pill px-3 d-flex justify-content-center align-items-center"
+                >
+                    Ajouter un album
+                </a>
+                
+            </div>
+
+            <div class="list-group list-group-flush">
+                {% for album in artist.albums %}
+                    <a
+                        href="{{ path('app_album_item', {'id': album.id}) }}"
+                        class="list-group-item list-group-item-action border-0 py-3 px-4"
+                    >
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <span class="text-secondary">
+                                    {{ album.title }}
+                                </span>
+                            </div>
+                            <div class="col">
+                                <div class="fw-semibold">
+                                    <img src="{{ asset(album.cover) }}" alt="" class="img-thumbnail" style="width: 100px"> 
+                                </div>
+                            </div>
+                            <div class="col-auto text-secondary">
+                                {{ album.releaseAt|date('d/m/Y') }}
+                            </div>
+                            <div class="col-auto text-secondary">
+                                {{ album.type }}
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -26,8 +26,7 @@ class AlbumType extends AbstractType
             ->add('cover', FileType::class, [
                 "label" => "Image",
                 "mapped" => false,
-                "required" => true,
-
+                "required" => false
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => [

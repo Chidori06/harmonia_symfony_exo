@@ -23,6 +23,16 @@ final class ArtistController extends AbstractController
         ]);
     }
 
+    #[Route('/artist/{id}', name: 'app_artist_item')]
+    public function item($id, ArtistRepository $artistRepository): Response
+    {
+
+        $artist = $artistRepository->find($id);
+        return $this->render('artist/item.html.twig', [
+            'artist' => $artist,
+        ]);
+    }
+
     #[Route('/artist-add', name: 'app_artist_add')]
     public function addArtist(EntityManagerInterface $em, Request $request): Response
     {

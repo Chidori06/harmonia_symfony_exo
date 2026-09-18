@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer un album {% endblock %}
+
+
+{% block body %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card border-secondary rounded-4 shadow-lg">
+                    <div class="card-body p-4 p-md-5">
+
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold mb-1">Editer un album</h2>
+                        </div>
+
+                        {{ form_start(albumForm) }}
+                        <div class="mb-4">
+                            {{ form_label(albumForm.title, null, {
+                            'label_attr': {
+                                'class': 'form-label fw-semibold'
+                            }
+                        }) }}
+                            {{ form_widget(albumForm.title, {
+                            'attr': {
+                                'class': 'form-control bg-dark text-white border-secondary',
+                                'placeholder': 'Nom de l’album'
+                            }
+                        }) }}
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form_label(albumForm.releaseAt, null, {
+                            'label_attr': {
+                                'class': 'form-label fw-semibold'
+                            }
+                        }) }}
+                            {{ form_widget(albumForm.releaseAt, {
+                            'attr': {
+                                'class': 'form-control bg-dark text-white border-secondary'
+                            }
+                        }) }}
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form_label(albumForm.type, null, {
+                            'label_attr': {
+                                'class': 'form-label fw-semibold'
+                            }
+                        }) }}
+                            {{ form_widget(albumForm.type, {
+                            'attr': {
+                                'class': 'form-select bg-dark text-white border-secondary'
+                            }
+                        }) }}
+                        </div>
+
+                        {% if album.cover %}
+                            <div>
+                                <p>Image actuelle :</p>
+
+                                <img
+                                    src="{{ asset(album.cover) }}"
+                                    alt="{{ album.title }}"
+                                    style="width: 200px;"
+                                >
+                            </div>
+                        {% endif %}
+                        <div class="mb-4">
+                            {{ form_label(albumForm.cover, null, {
+                            'label_attr': {
+                                'class': 'form-label fw-semibold'
+                            }
+                        }) }}
+                            {{ form_widget(albumForm.cover, {
+                            'attr': {
+                                'class': 'form-control bg-dark text-white border-secondary',
+                                'accept': 'image/jpeg,image/png,image/svg+xml,image/webp'
+                            }
+                        }) }}
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button
+                                type="submit"
+                                class="btn btn-success rounded-pill px-4"
+                            >
+                                Editer
+                            </button>
+                        </div>
+                        {{ form_end(albumForm) }} 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

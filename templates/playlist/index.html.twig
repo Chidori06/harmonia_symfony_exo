@@ -12,6 +12,14 @@
                 {{ app.user.playlists|length }}
                 playlist{{ app.user.playlists|length > 1 ? 's' : '' }}
             </p>
+            <div>
+                <a
+                    href="{{ path('app_playlist_add', {'user': app.user.pseudonym}) }}"
+                    class="btn btn-outline-dark rounded-pill px-4 mt-4"
+                >
+                    Créer une playlist
+                </a>
+            </div>
         </div>
 
         {% if app.user.playlists|length > 0 %}
@@ -29,6 +37,15 @@
                                             {{ playlist.tracks|length }}
                                             chanson{{ playlist.tracks|length > 1 ? 's' : '' }}
                                         </p>
+
+                                        <div>
+                                            <a
+                                                href="#"
+                                                class="btn btn-outline-light rounded-pill px-4 mt-4"
+                                            >
+                                                Editer une playlist
+                                            </a>
+                                        </div>
                                     </div>
 
                                     {% if playlist.isPublic %}
@@ -59,9 +76,6 @@
                                             class="list-group-item list-group-item-action border-0 px-4 py-3"
                                         >
                                             <div class="d-flex align-items-center">
-                                                <span class="text-secondary me-3">
-                                                    {{ '%02d'|format(track.numberTrack) }}
-                                                </span>
                                                 <div class="flex-grow-1">
                                                     <div class="fw-semibold">
                                                         {{ track.title }}
@@ -73,7 +87,7 @@
                                                     </small>
                                                 </div>
                                                 <small class="text-secondary ms-3">
-                                                    {{ track.duration|date('h:i:s') }}
+                                                    {{ track.duration|date('i:s') }}
                                                 </small>
                                             </div>
                                         </a>
@@ -98,7 +112,7 @@
                         Vous n'avez encore créé aucune playlist.
                     </p>
                     <a
-                        href="#"
+                        href="{{ path('app_playlist_add', {'user': app.user.pseudonym}) }}"
                         class="btn btn-success rounded-pill px-4"
                     >
                         Créer une playlist

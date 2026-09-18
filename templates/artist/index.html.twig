@@ -51,18 +51,18 @@
                                 <td class="text-end pe-4">
                                     <div class="d-flex justify-content-end gap-2">
                                         <a
+                                            href="{{ path('app_artist_item', {'id': artist.id}) }}"
+                                            class="btn btn-outline-success btn-sm rounded-pill px-3 d-flex justify-content-center align-items-center"
+                                        >
+                                            Voir
+                                        </a>
+                                        <a
                                             href="{{ path('app_artist_edit', {'id': artist.id}) }}"
                                             class="btn btn-outline-success btn-sm rounded-pill px-3 d-flex justify-content-center align-items-center"
                                         >
                                             Editer
                                         </a>
 
-                                        <a
-                                            href="{{ path('app_album_add', {'id': artist.id}) }}"
-                                            class="btn btn-outline-success btn-sm rounded-pill px-3 d-flex justify-content-center align-items-center"
-                                        >
-                                            Ajouter un album
-                                        </a>
                                     </div>
                                 </td>
                             </tr>
