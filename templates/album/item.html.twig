@@ -46,10 +46,11 @@
                         {{ album.tracks|length }} chansons
                     </small>
                 </div>
-              
-                <a href="{{ path('app_track_add', {'id': album.id}) }}" class="btn btn-outline-light btn-sm rounded-pill">
-                    Ajouter une chanson
-                </a>
+                {% if app.user %}
+                    <a href="{{ path('app_track_add', {'id': album.id}) }}" class="btn btn-outline-light btn-sm rounded-pill">
+                        Ajouter une chanson
+                    </a>
+                {% endif %}
             </div>
 
             <div class="list-group list-group-flush">

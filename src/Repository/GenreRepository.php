@@ -16,7 +16,9 @@ class GenreRepository extends ServiceEntityRepository
         parent::__construct($registry, Genre::class);
     }
 
-//    /**
+
+
+    //    /**
 //     * @return Genre[] Returns an array of Genre objects
 //     */
 //    public function findByExampleField($value): array
@@ -31,7 +33,7 @@ class GenreRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Genre
+    //    public function findOneBySomeField($value): ?Genre
 //    {
 //        return $this->createQueryBuilder('g')
 //            ->andWhere('g.exampleField = :val')
