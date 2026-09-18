@@ -58,6 +58,31 @@ final class PlaylistController extends AbstractController
         ]);
     }
 
+    #[Route('/edit-playlist/{user}/{id}', name: 'app_playlist_edit')]
+    public function editPlaylist($user, Playlist $playlist, EntityManagerInterface $em, Request $request): Response
+    {
+        $user = $this->getUser();
+        if ($user === null) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        $form = $this->createForm(PlaylistType::class, $playlist);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('app_playlist', [
+                'user' => $user->getPseudonym(),
+            ]);
+        }
+
+        return $this->render('playlist/add.html.twig', [
+            'user' => $user,
+            'playlistForm' => $form->createView()
+        ]);
+    }
+
     #[Route('/playlist/{id}/add-tracks', name: 'app_playlist_tracks')]
     public function addTracks(Playlist $playlist, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -86,5 +111,33 @@ final class PlaylistController extends AbstractController
             'user' => $user
         ]);
     }
+
+    #[Route('/playlist/{id}/edit-tracks', name: 'app_playlist_edit_track')]
+    public function editTracks(Playlist $playlist, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+
+        if ($user === null) {
+            return $this->redirectToRoute('app_home');
+        }
+        $form = $this->createForm(PlaylistTrackType::class, $playlist);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_playlist', [
+                'user' => $user->getPseudonym(),
+            ]);
+        }
+
+        return $this->render('playlist/editTrack.html.twig', [
+            'playlist' => $playlist,
+            'tracksForm' => $form->createView(),
+            'user' => $user,
+        ]);
+    }
+
 
 }

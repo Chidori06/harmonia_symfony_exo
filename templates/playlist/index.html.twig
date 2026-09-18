@@ -40,10 +40,16 @@
 
                                         <div>
                                             <a
-                                                href="#"
+                                                href="{{ path('app_playlist_edit_track', {'id': playlist.id}) }}"
                                                 class="btn btn-outline-light rounded-pill px-4 mt-4"
                                             >
-                                                Editer une playlist
+                                                Modifier les chansons
+                                            </a>
+                                            <a
+                                                href="{{ path('app_playlist_edit', {'user': app.user.pseudonym, 'id': playlist.id}) }}"
+                                                class="btn btn-outline-light rounded-pill px-4 mt-4"
+                                            >
+                                                Modifier la playlist
                                             </a>
                                         </div>
                                     </div>
