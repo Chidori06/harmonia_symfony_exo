@@ -20,6 +20,34 @@ class AlbumRepository extends ServiceEntityRepository
 //     * @return Album[] Returns an array of Album objects
 //     */
 
+    public function findWithRelations(string $type, ?int $limit = null): array
+    {
+        //SELECT a.* FROM album as a
+        $qb = $this->createQueryBuilder('a')
+            //SELECT a.*, ar.*, t.* FROM album as a
+            ->addSelect('ar', 't')
+            //JOIN artist AS ar ON ar.id = a.artist_id
+            ->join('a.artist', 'ar')
+            //JOIN track AS t ON t.album_id = a.id
+            ->join('a.tracks', 't')
+            // WHERE a.type = ?
+            ->where('a.type = :type')
+            ->setParameter('type', $type)
+            //ORDER BY a.releaseAt DESC
+            ->orderBy('a.releaseAt', 'DESC');
+
+        if ($limit !== null) {
+            //LIMIT 8
+            $qb->setMaxResults($limit)
+                ->groupBy('a');
+        }
+
+        return $qb
+            ->getQuery()
+            //$pdo->execute($statement)
+            ->getResult();
+    }
+
     public function getAlbumsAfter20s()
     {
         return $this->createQueryBuilder('a')

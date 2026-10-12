@@ -16,21 +16,10 @@ final class GenreExtension
 
     }
 
-    // If your filter generates SAFE HTML, you should add the "isSafe" argument:
-    // #[AsTwigFilter(name: 'filter_name', isSafe: ['html'])]
-    // Reference: https://twig.symfony.com/doc/3.x/advanced.html#automatic-escaping
-    #[AsTwigFilter('filter')]
-    public function doSomething(string $value): string
-    {
-        // ...
-
-        return $value;
-    }
-
     #[AsTwigFunction('getGenres')]
     public function getGenres(): array
     {
-        return $this->genreRepository->findAll();
+        return $this->genreRepository->findBy([], ['label' => 'ASC']);
 
     }
 }
