@@ -35,6 +35,7 @@
                             {{ track.album.artist.name }}
                         </div>
                     </div>
+                    {# A modifier en JS + fetch #}
                     {% if app.user %}
                         {% if track.id in favoriteTrackIds %}
                             <a
