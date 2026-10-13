@@ -2,6 +2,7 @@
 
 namespace App\Tests\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase
@@ -13,5 +14,19 @@ class SecurityControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
     }
-    //Manque le logout
+
+    public function testLogout(): void
+    {
+        $client = static::createClient();
+        $user = static::getContainer()
+            ->get(UserRepository::class)
+            ->findOneBy(['email' => 'email@email.com']);
+
+        $client->loginUser($user);
+
+        $crawler = $client->request('GET', '/logout');
+
+        $this->assertResponseRedirects('/');
+    }
+
 }
