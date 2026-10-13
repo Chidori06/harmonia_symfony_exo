@@ -6,6 +6,7 @@ use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
 class Album
@@ -16,15 +17,18 @@ class Album
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Le titre de l\'album doit avoir une valeur')]
     private ?string $title = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'La date de sortie doit avoir une valeur')]
     private ?\DateTimeImmutable $releaseAt = null;
 
     #[ORM\Column(length: 255)]
     private ?string $cover = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Le type de l\'album doit avoir une valeur')]
     private ?string $type = null;
 
     #[ORM\Column]

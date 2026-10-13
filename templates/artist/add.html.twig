@@ -26,6 +26,10 @@
                                 'class': 'form-control bg-dark text-white border-secondary',
                             }
                         }) }}
+                            <div class="error">
+                                {{ form_errors(artistForm.name) }}
+                            </div>
+
                         </div>
 
                         <div class="mb-4">
@@ -39,6 +43,9 @@
                                 'rows' : '4'
                             }
                         }) }}
+                            <div class="error">
+                                {{ form_errors(artistForm.biography) }}
+                            </div>
                         </div>
 
                         <div class="mb-4">
@@ -51,6 +58,9 @@
                                 'class': 'form-control bg-dark text-white border-secondary',
                             }
                         }) }}
+                            <div class="error">
+                                {{ form_errors(artistForm.country) }}
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-success rounded-pill px-4">
                             Ajouter

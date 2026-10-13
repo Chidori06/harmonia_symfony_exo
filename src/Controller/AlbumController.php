@@ -47,7 +47,7 @@ final class AlbumController extends AbstractController
                 PATHINFO_FILENAME
             );
             $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename . '-' . uniqid() . '.' . $coverFile->guessExtension();
+            $newFilename = $safeFilename . '-' . bin2hex(32) . '.' . $coverFile->guessExtension();
             $coverFile->move(
                 $this->getParameter('kernel.project_dir') . '/public/uploads',
                 $newFilename
@@ -92,7 +92,7 @@ final class AlbumController extends AbstractController
                 );
 
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $coverFile->guessExtension();
+                $newFilename = $safeFilename . '-' . bin2hex(32) . '.' . $coverFile->guessExtension();
                 $uploadDirectory = $this->getParameter('kernel.project_dir')
                     . '/public/uploads';
 
