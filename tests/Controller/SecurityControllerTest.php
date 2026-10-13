@@ -13,4 +13,5 @@ class SecurityControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
     }
+    //Manque le logout
 }

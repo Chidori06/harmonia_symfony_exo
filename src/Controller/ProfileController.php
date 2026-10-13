@@ -13,7 +13,7 @@ final class ProfileController extends AbstractController
     {
         $user = $this->getUser();
         if ($user === null) {
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
         return $this->render('profile/index.html.twig', [
             'user' => $user
